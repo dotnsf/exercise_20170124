@@ -73,9 +73,15 @@ Abercrombie Neil Male 2/13/1943 Tan
 
 * Install PHP(5.3+).
 
+    * $ sudo yum install php
+
 * Download 3 text files(space.txt, pipe.txt, and comma.txt) and garage.php, and save them in same folder.
 
-* Execute garage.php ($php -f garage.php)
+    * $ git clone https://github.com/dotnsf/exercise_20170124
+
+* Execute garage.php
+
+    * $ php -f garage.php
 
 ## License
 
