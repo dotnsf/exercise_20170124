@@ -71,17 +71,39 @@ Abercrombie Neil Male 2/13/1943 Tan
 
 ## How to Execute
 
-* Install PHP(5.3+).
+* Install PHP(5.6+).
 
-    * $ sudo yum install php
+    * $ sudo apt-get install python-software-properties
 
-* Download 3 text files(space.txt, pipe.txt, and comma.txt) and garage.php, and save them in same folder.
+    * $ sudo add-apt-repository ppa:ondrej/php
+
+    * $ sudo apt-get update
+
+    * $ sudo apt-get install php5.6
+
+    * $ php -v
+
+* Install PHPUnit (Unit test for PHP)
+
+    * $ wget https://phar.phpunit.de/phpunit.phar
+
+    * $ chmod +x phpunit.phar
+
+    * $ sudo mv phpunit.phar /usr/local/bin/phpunit
+
+    * $ phpunit --version
+
+* Download 3 text files(space.txt, pipe.txt, and comma.txt), Exercise.php, and ExerciseTest.php, and save them in same folder.
 
     * $ git clone https://github.com/dotnsf/exercise_20170124
 
-* Execute garage.php
+* Test Exercise.php
 
-    * $ php -f garage.php
+    * $ phpunit ExerciseTest.php
+
+* Execute Exercise.php
+
+    * $ php -f Exercise.php
 
 ## License
 
