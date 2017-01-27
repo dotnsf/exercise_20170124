@@ -26,7 +26,7 @@ class ExerciseTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(true, $this->object->isFileValid($file1));
         $file2 = array(
           "name" => "pipe.txt",
-          "delim" => " \| ",
+          "delim" => " | ",
           "order" => array( 0, 1, 3, 5, 4 )
         );
         $this->assertEquals(true, $this->object->isFileValid($file2));
@@ -62,12 +62,34 @@ class ExerciseTest extends PHPUnit_Framework_TestCase {
     /*
      * Test readNormalizedMember()
      */
-/*
     public function testReadNormalizedMember() {
-        //. Assert for space.txt 
-        $this->assertEquals(8, $this->object->readNormalizedMember(3, 5));
+        $member1expect = array(
+          array("name"=>"Kournikova Anna","gender"=>"Female","birthdate"=>strtotime("6/3/1975"),"color"=>"Red"),
+          array("name"=>"Hingis Martina","gender"=>"Female","birthdate"=>strtotime("4/2/1979"),"color"=>"Green"),
+          array("name"=>"Seles Monica","gender"=>"Female","birthdate"=>strtotime("12/2/1973"),"color"=>"Black"),
+        );
+        $file1 = array( "name" => "space.txt", "delim" => " ", "order" => array( 0, 1, 3, 4, 5 ) );
+        $member1result = $this->object->readNormalizedMember($file1);
+        $this->assertEquals($member1expect, $member1result);
+
+        $member2expect = array(
+          array("name"=>"Smith Steve","gender"=>"Male","birthdate"=>strtotime("3/3/1985"),"color"=>"Red"),
+          array("name"=>"Bonk Radek","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Green"),
+          array("name"=>"Bouillon Francis","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Blue")
+        );
+        $file2 = array( "name" => "pipe.txt", "delim" => " | ", "order" => array( 0, 1, 3, 5, 4, ) );
+        $member2result = $this->object->readNormalizedMember($file2);
+        $this->assertEquals($member2expect, $member2result);
+
+        $member3expect = array(
+          array("name"=>"Abercrombie Neil","gender"=>"Male","birthdate"=>strtotime("2/13/1943"),"color"=>"Tan"),
+          array("name"=>"Bishop Timothy","gender"=>"Male","birthdate"=>strtotime("4/23/1967"),"color"=>"Yellow"),
+          array("name"=>"Kelly Sue","gender"=>"Female","birthdate"=>strtotime("7/12/1959"),"color"=>"Pink")
+        );
+        $file3 = array( "name" => "comma.txt", "delim" => ", ", "order" => array( 0, 1, 2, 4, 3 ) );
+        $member3result = $this->object->readNormalizedMember($file3);
+        $this->assertEquals($member3expect, $member3result);
     }
-*/
  
     /*
      * Test fullGenderWord()

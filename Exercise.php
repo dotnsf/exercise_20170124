@@ -177,7 +177,7 @@ class Exercise{
 //.  order => (array)(index number of first name, lastname, gender, birthdate, and color)
 $files = array(
   array( "name" => "space.txt", "delim" => " ", "order" => array( 0, 1, 3, 4, 5 ) ),
-  array( "name" => "pipe.txt", "delim" => " \| ", "order" => array( 0, 1, 3, 5, 4, ) ),
+  array( "name" => "pipe.txt", "delim" => " | ", "order" => array( 0, 1, 3, 5, 4, ) ),
   array( "name" => "comma.txt", "delim" => ", ", "order" => array( 0, 1, 2, 4, 3 ) )
 );
 
