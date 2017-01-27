@@ -16,7 +16,8 @@ class Exercise{
   public function isFileValid( $file ){
     $b = false;
 
-    $b = array_key_exists( "name", $file ) && is_string( $file["name"] )
+    $b = is_array( $file )
+      && array_key_exists( "name", $file ) && is_string( $file["name"] )
       && array_key_exists( "delim", $file ) && is_string( $file["delim"] )
       && array_key_exists( "order", $file ) && is_array( $file["order"] );
 
@@ -35,7 +36,8 @@ class Exercise{
   public function isPersonValid( $person ){
     $b = false;
 
-    $b = array_key_exists( "name", $person ) && is_string( $person["name"] )
+    $b = is_array( $person )
+      && array_key_exists( "name", $person ) && is_string( $person["name"] )
       && array_key_exists( "gender", $person ) && is_string( $person["gender"] )
       && array_key_exists( "birthdate", $person ) && is_numeric( $person["birthdate"] )
       && array_key_exists( "color", $person ) && is_string( $person["color"] );
@@ -131,24 +133,26 @@ class Exercise{
    *  $asc => (boolean)( false if sort order is descendance )
    */
   public function sortBy( $array, $field, $asc = true ){
-    $n = count( $array );
-    for( $i = 0; $i < $n - 1; $i ++ ){
-      $idx = $i;
-      for( $j = $i + 1; $j < $n; $j ++ ){
-        //. Jugde whether if $array[$j] should be over $array[$idx].
-        $b = $asc ? $array[$idx][$field] > $array[$j][$field] : $array[$idx][$field] < $array[$j][$field];
-        if( $b ){
-          $idx = $j;
+    if( is_array( $array ) ){
+      $n = count( $array );
+      for( $i = 0; $i < $n - 1; $i ++ ){
+        $idx = $i;
+        for( $j = $i + 1; $j < $n; $j ++ ){
+          //. Jugde whether if $array[$j] should be over $array[$idx].
+          $b = $asc ? $array[$idx][$field] > $array[$j][$field] : $array[$idx][$field] < $array[$j][$field];
+          if( $b ){
+            $idx = $j;
+          }
         }
-      }
 
-      if( $idx != $i ){
-        //. shift order
-        $tmp = $array[$idx];
-        for( $j = $idx; $j > $i; $j -- ){
-          $array[$j] = $array[$j-1];
+        if( $idx != $i ){
+          //. shift order
+          $tmp = $array[$idx];
+          for( $j = $idx; $j > $i; $j -- ){
+            $array[$j] = $array[$j-1];
+          }
+          $array[$i] = $tmp;
         }
-        $array[$i] = $tmp;
       }
     }
   
@@ -161,10 +165,12 @@ class Exercise{
    *  $people : (array)(normalized person)
    */
   public function outputPeople( $people ){
-    $n = count( $people );
-    for( $i = 0; $i < $n; $i ++ ){
-      $person = $people[$i];
-      print $person['name'] . " " . $person['gender'] . " " . date( 'n/j/Y', $person['birthdate'] ) . " " . $person['color'] . "\n";
+    if(is_array($people)){
+      $n = count( $people );
+      for( $i = 0; $i < $n; $i ++ ){
+        $person = $people[$i];
+        print $person['name'] . " " . $person['gender'] . " " . date( 'n/j/Y', $person['birthdate'] ) . " " . $person['color'] . "\n";
+      }
     }
   }
 
