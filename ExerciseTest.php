@@ -19,16 +19,23 @@ class ExerciseTest extends PHPUnit_Framework_TestCase {
      */
     public function testIsFileValid() {
         $file1 = array(
-          "name" => "aaa.txt",
+          "name" => "space.txt",
           "delim" => " ",
-          "order" => array( 0, 1, 2, 3, 4 )
+          "order" => array( 0, 1, 3, 4, 5 )
         );
         $this->assertEquals(true, $this->object->isFileValid($file1));
         $file2 = array(
-          "name" => "bbb.txt",
-          "order" => array( 0, 1, 2, 3, 4 )
+          "name" => "pipe.txt",
+          "delim" => " \| ",
+          "order" => array( 0, 1, 3, 5, 4 )
         );
-        $this->assertEquals(false, $this->object->isFileValid($file2));
+        $this->assertEquals(true, $this->object->isFileValid($file2));
+        $file3 = array(
+          "name" => "comma.txt",
+          "delim" => ", ",
+          "order" => array( 0, 1, 2, 4, 3 )
+        );
+        $this->assertEquals(true, $this->object->isFileValid($file3));
     }
 
 
@@ -36,7 +43,6 @@ class ExerciseTest extends PHPUnit_Framework_TestCase {
      * Test isPersonValid()
      */
     public function testIsPersonValid() {
-        //. Assert for  
         $person1 = array(
           "name" => "Firstname Secondname",
           "gender" => "Gender",
@@ -93,40 +99,54 @@ class ExerciseTest extends PHPUnit_Framework_TestCase {
      * Test sortBy()
      */
     public function testSortBy() {
-        $people0 = array(
-          array("name"=>"Kei Kimura","gender"=>"Male","birthdate"=>strtotime("11/6/1968"),"color"=>"Blue"),
-          array("name"=>"Shuzo Matsuoka","gender"=>"Male","birthdate"=>strtotime("11/6/1967"),"color"=>"Red"),
-          array("name"=>"Mao Asada","gender"=>"Female","birthdate"=>strtotime("9/25/1990"),"color"=>"Blue"),
-          array("name"=>"Marin Honda","gender"=>"Female","birthdate"=>strtotime("8/21/2001"),"color"=>"Red")
+        $people = array(
+          array("name"=>"Kournikova Anna","gender"=>"Female","birthdate"=>strtotime("6/3/1975"),"color"=>"Red"),
+          array("name"=>"Hingis Martina","gender"=>"Female","birthdate"=>strtotime("4/2/1979"),"color"=>"Green"),
+          array("name"=>"Seles Monica","gender"=>"Female","birthdate"=>strtotime("12/2/1973"),"color"=>"Black"),
+          array("name"=>"Smith Steve","gender"=>"Male","birthdate"=>strtotime("3/3/1985"),"color"=>"Red"),
+          array("name"=>"Bonk Radek","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Green"),
+          array("name"=>"Bouillon Francis","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Blue"),
+          array("name"=>"Abercrombie Neil","gender"=>"Male","birthdate"=>strtotime("2/13/1943"),"color"=>"Tan"),
+          array("name"=>"Bishop Timothy","gender"=>"Male","birthdate"=>strtotime("4/23/1967"),"color"=>"Yellow"),
+          array("name"=>"Kelly Sue","gender"=>"Female","birthdate"=>strtotime("7/12/1959"),"color"=>"Pink")
         );
-        $people1 = array(
-          array("name"=>"Kei Kimura","gender"=>"Male","birthdate"=>strtotime("11/6/1968"),"color"=>"Blue"),
-          array("name"=>"Mao Asada","gender"=>"Female","birthdate"=>strtotime("9/25/1990"),"color"=>"Blue"),
-          array("name"=>"Marin Honda","gender"=>"Female","birthdate"=>strtotime("8/21/2001"),"color"=>"Red"),
-          array("name"=>"Shuzo Matsuoka","gender"=>"Male","birthdate"=>strtotime("11/6/1967"),"color"=>"Red")
+        $output1 = array(
+          array("name"=>"Hingis Martina","gender"=>"Female","birthdate"=>strtotime("4/2/1979"),"color"=>"Green"),
+          array("name"=>"Kelly Sue","gender"=>"Female","birthdate"=>strtotime("7/12/1959"),"color"=>"Pink"),
+          array("name"=>"Kournikova Anna","gender"=>"Female","birthdate"=>strtotime("6/3/1975"),"color"=>"Red"),
+          array("name"=>"Seles Monica","gender"=>"Female","birthdate"=>strtotime("12/2/1973"),"color"=>"Black"),
+          array("name"=>"Abercrombie Neil","gender"=>"Male","birthdate"=>strtotime("2/13/1943"),"color"=>"Tan"),
+          array("name"=>"Bishop Timothy","gender"=>"Male","birthdate"=>strtotime("4/23/1967"),"color"=>"Yellow"),
+          array("name"=>"Bonk Radek","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Green"),
+          array("name"=>"Bouillon Francis","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Blue"),
+          array("name"=>"Smith Steve","gender"=>"Male","birthdate"=>strtotime("3/3/1985"),"color"=>"Red")
         );
-        $people2 = array(
-          array("name"=>"Mao Asada","gender"=>"Female","birthdate"=>strtotime("9/25/1990"),"color"=>"Blue"),
-          array("name"=>"Marin Honda","gender"=>"Female","birthdate"=>strtotime("8/21/2001"),"color"=>"Red"),
-          array("name"=>"Kei Kimura","gender"=>"Male","birthdate"=>strtotime("11/6/1968"),"color"=>"Blue"),
-          array("name"=>"Shuzo Matsuoka","gender"=>"Male","birthdate"=>strtotime("11/6/1967"),"color"=>"Red")
+        $output2 = array(
+          array("name"=>"Abercrombie Neil","gender"=>"Male","birthdate"=>strtotime("2/13/1943"),"color"=>"Tan"),
+          array("name"=>"Kelly Sue","gender"=>"Female","birthdate"=>strtotime("7/12/1959"),"color"=>"Pink"),
+          array("name"=>"Bishop Timothy","gender"=>"Male","birthdate"=>strtotime("4/23/1967"),"color"=>"Yellow"),
+          array("name"=>"Seles Monica","gender"=>"Female","birthdate"=>strtotime("12/2/1973"),"color"=>"Black"),
+          array("name"=>"Bonk Radek","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Green"),
+          array("name"=>"Bouillon Francis","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Blue"),
+          array("name"=>"Kournikova Anna","gender"=>"Female","birthdate"=>strtotime("6/3/1975"),"color"=>"Red"),
+          array("name"=>"Hingis Martina","gender"=>"Female","birthdate"=>strtotime("4/2/1979"),"color"=>"Green"),
+          array("name"=>"Smith Steve","gender"=>"Male","birthdate"=>strtotime("3/3/1985"),"color"=>"Red")
         );
-        $people3 = array(
-          array("name"=>"Marin Honda","gender"=>"Female","birthdate"=>strtotime("8/21/2001"),"color"=>"Red"),
-          array("name"=>"Mao Asada","gender"=>"Female","birthdate"=>strtotime("9/25/1990"),"color"=>"Blue"),
-          array("name"=>"Kei Kimura","gender"=>"Male","birthdate"=>strtotime("11/6/1968"),"color"=>"Blue"),
-          array("name"=>"Shuzo Matsuoka","gender"=>"Male","birthdate"=>strtotime("11/6/1967"),"color"=>"Red")
+        $output3 = array(
+          array("name"=>"Smith Steve","gender"=>"Male","birthdate"=>strtotime("3/3/1985"),"color"=>"Red"),
+          array("name"=>"Seles Monica","gender"=>"Female","birthdate"=>strtotime("12/2/1973"),"color"=>"Black"),
+          array("name"=>"Kournikova Anna","gender"=>"Female","birthdate"=>strtotime("6/3/1975"),"color"=>"Red"),
+          array("name"=>"Kelly Sue","gender"=>"Female","birthdate"=>strtotime("7/12/1959"),"color"=>"Pink"),
+          array("name"=>"Hingis Martina","gender"=>"Female","birthdate"=>strtotime("4/2/1979"),"color"=>"Green"),
+          array("name"=>"Bouillon Francis","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Blue"),
+          array("name"=>"Bonk Radek","gender"=>"Male","birthdate"=>strtotime("6/3/1975"),"color"=>"Green"),
+          array("name"=>"Bishop Timothy","gender"=>"Male","birthdate"=>strtotime("4/23/1967"),"color"=>"Yellow"),
+          array("name"=>"Abercrombie Neil","gender"=>"Male","birthdate"=>strtotime("2/13/1943"),"color"=>"Tan")
         );
-        $people4 = array(
-          array("name"=>"Kei Kimura","gender"=>"Male","birthdate"=>strtotime("11/6/1968"),"color"=>"Blue"),
-          array("name"=>"Mao Asada","gender"=>"Female","birthdate"=>strtotime("9/25/1990"),"color"=>"Blue"),
-          array("name"=>"Shuzo Matsuoka","gender"=>"Male","birthdate"=>strtotime("11/6/1967"),"color"=>"Red"),
-          array("name"=>"Marin Honda","gender"=>"Female","birthdate"=>strtotime("8/21/2001"),"color"=>"Red")
-        );
-        $this->assertEquals($people1, $this->object->sortBy($people0,"name"));
-        $this->assertEquals($people2, $this->object->sortBy($people0,"gender"));
-        $this->assertEquals($people3, $this->object->sortBy($people0,"birthdate",false));
-        $this->assertEquals($people4, $this->object->sortBy($people0,"color"));
+
+        $this->assertEquals($output1, $this->object->sortBy($this->object->sortBy($people,"name"),"gender"));
+        $this->assertEquals($output2, $this->object->sortBy($this->object->sortBy($people,"name"),"birthdate"));
+        $this->assertEquals($output3, $this->object->sortBy($people,"name",false));
     }
  
 }

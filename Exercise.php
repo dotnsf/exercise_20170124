@@ -64,7 +64,7 @@ class Exercise{
           $delim = $file['delim'];
           while( !feof( $fno ) ){
             $line = trim( fgets( $fno ) ); //. normalize line
-            $words = split( $delim, $line );
+            $words = explode( $delim, $line );
             if( count( $words ) > 4 ){
               //. normalized object
               $person = array(
@@ -113,7 +113,7 @@ class Exercise{
    */
   public function mystrtotime( $datestr ){
     //. Separate datestr to day, month, and year with "-"
-    $tmp = split( "-", $datestr );
+    $tmp = explode( "-", $datestr );
 
     if( count( $tmp ) > 2 ){
       //. Reorganize 'M-D-YYYY' as 'M/D/YYYY' order.
